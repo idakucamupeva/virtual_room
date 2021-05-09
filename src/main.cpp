@@ -245,7 +245,7 @@ int main() {
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+	unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/wall.jpg").c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -256,7 +256,7 @@ int main() {
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-	// texture 2
+	/*// texture 2
 	// ---------
 	glGenTextures(1, &texture2);
 	glBindTexture(GL_TEXTURE_2D, texture2);
@@ -279,12 +279,12 @@ int main() {
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-
+*/
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
-	ourShader.use();
-	ourShader.setInt("texture1", 0);
-	ourShader.setInt("texture2", 1);
+	haminShader.use();
+	haminShader.setInt("texture1", 0);
+	haminShader.setInt("texture2", 1);
 
 	//haha
 
@@ -337,9 +337,13 @@ int main() {
 		glm::mat4 model1         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 		glm::mat4 view1          = glm::mat4(1.0f);
 		glm::mat4 projection1    = glm::mat4(1.0f);
-		model1 = glm::rotate(model1, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		view1  = glm::translate(view1, glm::vec3(0.0f, 0.0f, -3.0f));
-		projection1 = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		model1 = glm::rotate(model1, glm::radians(0.f), glm::vec3(1.0f, 0.0f, 0.0f));
+		view1  = programState->camera.GetViewMatrix();
+		projection1 = glm::perspective(glm::radians(programState->camera.Zoom),
+			(float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
+		model1 = glm::scale(model1, glm::vec3(20));    // it's a bit too big for our scene, so scale it down
+		model1 = glm::translate(model1,
+			glm::vec3(0.0f,0.5f,0));
 		// retrieve the matrix uniform locations
 		unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
 		unsigned int viewLoc  = glGetUniformLocation(ourShader.ID, "view");
