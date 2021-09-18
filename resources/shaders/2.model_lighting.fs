@@ -50,7 +50,8 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float spec = 0.0;
     vec3 halfwayDir = normalize(lightDir + viewDir);
     spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
-    vec3 specular = light.specular * spec;
+    vec3 specular = light.specular * spec * vec3(texture(material.texture_specular1, TexCoords).xxx);
+    specular *= attenuation;
 
     return (ambient + diffuse + specular);
 }
