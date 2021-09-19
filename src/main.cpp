@@ -288,31 +288,24 @@ int main() {
     // load models
     // -----------
 
-    stbi_set_flip_vertically_on_load(false);
+    stbi_set_flip_vertically_on_load(true);
 
-    Model ourModel("resources/objects/desk_with_pc/Desk_with_computer.obj");
+    Model ourModel("resources/objects/backpack/backpack.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
 
-    stbi_set_flip_vertically_on_load(true);
-	Model ourModel1("resources/objects/backpack/backpack.obj");
+    stbi_set_flip_vertically_on_load(false);
+	Model ourModel1("resources/objects/desk_with_pc/Desk_with_computer.obj");
     ourModel1.SetShaderTextureNamePrefix("material.");
 
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
-    pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+    pointLight.ambient = glm::vec3(1.1, 1.1, 1.1);
     pointLight.diffuse = glm::vec3(0.6, 0.6, 0.6);
     pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
     pointLight.constant = 1.0f;
     pointLight.linear = 0.09f;
     pointLight.quadratic = 0.032f;
-
-
-	DirectionalLight& directionalLight = programState->directionalLight;
-	directionalLight.ambient = glm::vec3(2.0f, 2.0, 0.0);
-	directionalLight.diffuse =  glm::vec3(0.3, 0.3, 0.3);
-	directionalLight.direction = glm::vec3 (1.0f, 1.0f, 0.0f);
-	directionalLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
 
     // render loop
@@ -386,21 +379,21 @@ int main() {
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               programState->backpackPosition); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(programState->backpackScale));    // it's a bit too big for our scene, so scale it down
+			glm::vec3(0.0f,1.0f,0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model,glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
         glUseProgram(0);
 
-		//BACKPACK
+		//TABLE
 		// don't forget to enable shader before setting uniforms
         duciShader.use();
 
 
-		ourShader.setVec3("directionalLight.direction", glm::vec3 (1.0f, 1.0f, 0.0f));
-		duciShader.setVec3("directionalLight.ambient", glm::vec3(2.0f, 2.0, 0.0));
-		duciShader.setVec3("directionalLight.diffuse", glm::vec3(0.3, 0.3, 0.3));
-		duciShader.setVec3("directionalLight.specular", glm::vec3(1.0, 1.0, 1.0));
+		ourShader.setVec3("directionalLight.direction", glm::vec3 (0.0f, 0.0f, 0.0f));
+		duciShader.setVec3("directionalLight.ambient", glm::vec3(0.5f, 0.5, 0.5));
+		duciShader.setVec3("directionalLight.diffuse", glm::vec3(0.1, 0.1, 0.1));
+		duciShader.setVec3("directionalLight.specular", glm::vec3(0.1, 0.1, 0.1));
 
 		duciShader.setVec3("viewPosition", programState->camera.Position);
 		duciShader.setFloat("material.shininess", 32.0f);
@@ -417,8 +410,8 @@ int main() {
         // render the loaded model
         glm::mat4 model2 = glm::mat4(1.0f);
         model2 = glm::translate(model2,
-                               glm::vec3(0.0f,1.0f,0.0f)); // translate it down so it's at the center of the scene
-        model2 = glm::scale(model2, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
+                               glm::vec3(0.0f,0.0f,0.0f)); // translate it down so it's at the center of the scene
+        model2 = glm::scale(model2, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
         duciShader.setMat4("model", model2);
         ourModel1.Draw(duciShader);
         glUseProgram(0);
