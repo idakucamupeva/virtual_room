@@ -389,11 +389,10 @@ int main() {
 		// don't forget to enable shader before setting uniforms
         duciShader.use();
 
-
-		ourShader.setVec3("directionalLight.direction", glm::vec3 (0.0f, 0.0f, 0.0f));
-		duciShader.setVec3("directionalLight.ambient", glm::vec3(0.5f, 0.5, 0.5));
-		duciShader.setVec3("directionalLight.diffuse", glm::vec3(0.1, 0.1, 0.1));
-		duciShader.setVec3("directionalLight.specular", glm::vec3(0.1, 0.1, 0.1));
+		duciShader.setVec3("directionalLight.direction", glm::vec3 (5.0f, 1.0f, 1.0f));
+		duciShader.setVec3("directionalLight.ambient", glm::vec3(0.1f, 0.1, 0.1));
+		duciShader.setVec3("directionalLight.diffuse", glm::vec3(0.5, 0.5, 0.5));
+		duciShader.setVec3("directionalLight.specular", glm::vec3(0.5, 0.5, 0.5));
 
 		duciShader.setVec3("viewPosition", programState->camera.Position);
 		duciShader.setFloat("material.shininess", 32.0f);
