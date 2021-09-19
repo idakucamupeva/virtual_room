@@ -51,6 +51,14 @@ struct PointLight {
     float quadratic;
 };
 
+struct DirectionalLight {
+    glm::vec3 direction;
+
+    glm::vec3 ambient;
+    glm::vec3 diffuse;
+    glm::vec3 specular;
+};
+
 struct ProgramState {
     glm::vec3 clearColor = glm::vec3(0);
     bool ImGuiEnabled = false;
@@ -59,6 +67,7 @@ struct ProgramState {
     glm::vec3 backpackPosition = glm::vec3(0.0f);
     float backpackScale = 1.0f;
     PointLight pointLight;
+    DirectionalLight directionalLight;
     ProgramState()
             : camera(glm::vec3(0.0f, 0.0f, 3.0f)) {}
 
@@ -278,9 +287,13 @@ int main() {
 
     // load models
     // -----------
+
+    stbi_set_flip_vertically_on_load(false);
+
     Model ourModel("resources/objects/desk_with_pc/Desk_with_computer.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
-	
+
+    stbi_set_flip_vertically_on_load(true);
 	Model ourModel1("resources/objects/backpack/backpack.obj");
     ourModel1.SetShaderTextureNamePrefix("material.");
 
@@ -380,14 +393,21 @@ int main() {
         glm::mat4 projection2 = glm::perspective(glm::radians(programState->camera.Zoom),
                                                 (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view2 = programState->camera.GetViewMatrix();
+
         duciShader.setMat4("projection", projection2);
         duciShader.setMat4("view", view2);
+
+        DirectionalLight& directionalLight = programState->directionalLight;
+        directionalLight.ambient = glm::vec3(2.0f, 2.0, 0.0);;
+        directionalLight.diffuse =  glm::vec3(0.3, 0.3, 0.3);;
+        directionalLight.direction = glm::vec3 (1.0f, 1.0f, 0.0f);
+        directionalLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
         // render the loaded model
         glm::mat4 model2 = glm::mat4(1.0f);
         model2 = glm::translate(model2,
-                               glm::vec3(0,1,0)); // translate it down so it's at the center of the scene
-        model2 = glm::scale(model2, glm::vec3(0.5,0.5,0.5));    // it's a bit too big for our scene, so scale it down
+                               glm::vec3(0.0f,1.0f,0.0f)); // translate it down so it's at the center of the scene
+        model2 = glm::scale(model2, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         duciShader.setMat4("model", model2);
         ourModel1.Draw(duciShader);
         glUseProgram(0);
