@@ -293,7 +293,7 @@ int main() {
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	//stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/wall.jpg").c_str(), &width, &height, &nrChannels, 0);
+	unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/white-4341307_1280.jpg").c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -312,7 +312,7 @@ int main() {
 	glBindTexture(GL_TEXTURE_2D, texture2);
 	//int width, height, nrChannels;
 	//stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+	data = stbi_load(FileSystem::getPath("resources/textures/wood.png").c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -458,16 +458,122 @@ int main() {
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+	{
+		glfwSetWindowShouldClose(window, true);
+	}
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        programState->camera.ProcessKeyboard(FORWARD, deltaTime);
+	{
+		programState->camera.ProcessKeyboard(FORWARD, deltaTime);
+		if(programState->camera.Position.x>9.5)
+		{
+			programState->camera.Position.x -=0.2;
+		}
+		if(programState->camera.Position.y>19.5)
+		{
+			programState->camera.Position.y -=0.2;
+		}
+		if(programState->camera.Position.z>9.5)
+		{
+			programState->camera.Position.z -=0.2;
+		}
+		if(programState->camera.Position.x<-9.5)
+		{
+			programState->camera.Position.x +=0.2;
+		}
+		if(programState->camera.Position.y<0.5)
+		{
+			programState->camera.Position.y +=0.2;
+		}
+		if(programState->camera.Position.z<-9.5)
+		{
+			programState->camera.Position.z +=0.2;
+		}
+	}
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        programState->camera.ProcessKeyboard(BACKWARD, deltaTime);
+	{
+		programState->camera.ProcessKeyboard(BACKWARD, deltaTime);
+		if (programState->camera.Position.x > 9.5)
+		{
+			programState->camera.Position.x -= 0.2;
+		}
+		if (programState->camera.Position.y > 19.5)
+		{
+			programState->camera.Position.y -= 0.2;
+		}
+		if (programState->camera.Position.z > 9.5)
+		{
+			programState->camera.Position.z -= 0.2;
+		}
+		if (programState->camera.Position.x < -9.5)
+		{
+			programState->camera.Position.x += 0.2;
+		}
+		if (programState->camera.Position.y < 0.5)
+		{
+			programState->camera.Position.y += 0.2;
+		}
+		if (programState->camera.Position.z < -9.5)
+		{
+			programState->camera.Position.z += 0.2;
+		}
+	}
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        programState->camera.ProcessKeyboard(LEFT, deltaTime);
+	{
+		programState->camera.ProcessKeyboard(LEFT, deltaTime);
+		if(programState->camera.Position.x>9.5)
+		{
+			programState->camera.Position.x -=0.2;
+		}
+		if(programState->camera.Position.y>19.5)
+		{
+			programState->camera.Position.y -=0.2;
+		}
+		if(programState->camera.Position.z>9.5)
+		{
+			programState->camera.Position.z -=0.2;
+		}
+		if(programState->camera.Position.x<-9.5)
+		{
+			programState->camera.Position.x +=0.2;
+		}
+		if(programState->camera.Position.y<0.5)
+		{
+			programState->camera.Position.y +=0.2;
+		}
+		if(programState->camera.Position.z<-9.5)
+		{
+			programState->camera.Position.z +=0.2;
+		}
+	}
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        programState->camera.ProcessKeyboard(RIGHT, deltaTime);
+	{
+		programState->camera.ProcessKeyboard(RIGHT, deltaTime);
+		if(programState->camera.Position.x>9.5)
+		{
+			programState->camera.Position.x -=0.2;
+		}
+		if(programState->camera.Position.y>19.5)
+		{
+			programState->camera.Position.y -=0.2;
+		}
+		if(programState->camera.Position.z>9.5)
+		{
+			programState->camera.Position.z -=0.2;
+		}
+		if(programState->camera.Position.x<-9.5)
+		{
+			programState->camera.Position.x +=0.2;
+		}
+		if(programState->camera.Position.y<0.5)
+		{
+			programState->camera.Position.y +=0.2;
+		}
+		if(programState->camera.Position.z<-9.5)
+		{
+			programState->camera.Position.z +=0.2;
+		}
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
