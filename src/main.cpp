@@ -379,7 +379,7 @@ int main() {
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
-			glm::vec3(0.0f,1.0f,0.0f)); // translate it down so it's at the center of the scene
+			glm::vec3(6.8f,1.0f,-6.2f)); // translate it down so it's at the center of the scene
         model = glm::scale(model,glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
@@ -410,7 +410,7 @@ int main() {
         // render the loaded model
         glm::mat4 model2 = glm::mat4(1.0f);
         model2 = glm::translate(model2,
-                               glm::vec3(0.0f,0.0f,0.0f)); // translate it down so it's at the center of the scene
+                               glm::vec3(6.8f,0.0f,-6.2f)); // translate it down so it's at the center of the scene
         model2 = glm::scale(model2, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
         duciShader.setMat4("model", model2);
         ourModel1.Draw(duciShader);
@@ -449,27 +449,27 @@ void processInput(GLFWwindow *window) {
 		programState->camera.ProcessKeyboard(FORWARD, deltaTime);
 		if(programState->camera.Position.x>9.5)
 		{
-			programState->camera.Position.x -=0.2;
+			programState->camera.Position.x -=0.1;
 		}
 		if(programState->camera.Position.y>19.5)
 		{
-			programState->camera.Position.y -=0.2;
+			programState->camera.Position.y -=0.1;
 		}
 		if(programState->camera.Position.z>9.5)
 		{
-			programState->camera.Position.z -=0.2;
+			programState->camera.Position.z -=0.1;
 		}
 		if(programState->camera.Position.x<-9.5)
 		{
-			programState->camera.Position.x +=0.2;
+			programState->camera.Position.x +=0.1;
 		}
 		if(programState->camera.Position.y<0.5)
 		{
-			programState->camera.Position.y +=0.2;
+			programState->camera.Position.y +=0.1;
 		}
 		if(programState->camera.Position.z<-9.5)
 		{
-			programState->camera.Position.z +=0.2;
+			programState->camera.Position.z +=0.1;
 		}
 	}
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -477,27 +477,27 @@ void processInput(GLFWwindow *window) {
 		programState->camera.ProcessKeyboard(BACKWARD, deltaTime);
 		if (programState->camera.Position.x > 9.5)
 		{
-			programState->camera.Position.x -= 0.2;
+			programState->camera.Position.x -= 0.1;
 		}
 		if (programState->camera.Position.y > 19.5)
 		{
-			programState->camera.Position.y -= 0.2;
+			programState->camera.Position.y -= 0.1;
 		}
 		if (programState->camera.Position.z > 9.5)
 		{
-			programState->camera.Position.z -= 0.2;
+			programState->camera.Position.z -= 0.1;
 		}
 		if (programState->camera.Position.x < -9.5)
 		{
-			programState->camera.Position.x += 0.2;
+			programState->camera.Position.x += 0.1;
 		}
 		if (programState->camera.Position.y < 0.5)
 		{
-			programState->camera.Position.y += 0.2;
+			programState->camera.Position.y += 0.1;
 		}
 		if (programState->camera.Position.z < -9.5)
 		{
-			programState->camera.Position.z += 0.2;
+			programState->camera.Position.z += 0.1;
 		}
 	}
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
@@ -505,27 +505,27 @@ void processInput(GLFWwindow *window) {
 		programState->camera.ProcessKeyboard(LEFT, deltaTime);
 		if(programState->camera.Position.x>9.5)
 		{
-			programState->camera.Position.x -=0.2;
+			programState->camera.Position.x -=0.1;
 		}
 		if(programState->camera.Position.y>19.5)
 		{
-			programState->camera.Position.y -=0.2;
+			programState->camera.Position.y -=0.1;
 		}
 		if(programState->camera.Position.z>9.5)
 		{
-			programState->camera.Position.z -=0.2;
+			programState->camera.Position.z -=0.1;
 		}
 		if(programState->camera.Position.x<-9.5)
 		{
-			programState->camera.Position.x +=0.2;
+			programState->camera.Position.x +=0.1;
 		}
 		if(programState->camera.Position.y<0.5)
 		{
-			programState->camera.Position.y +=0.2;
+			programState->camera.Position.y +=0.1;
 		}
 		if(programState->camera.Position.z<-9.5)
 		{
-			programState->camera.Position.z +=0.2;
+			programState->camera.Position.z +=0.1;
 		}
 	}
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
@@ -533,27 +533,27 @@ void processInput(GLFWwindow *window) {
 		programState->camera.ProcessKeyboard(RIGHT, deltaTime);
 		if(programState->camera.Position.x>9.5)
 		{
-			programState->camera.Position.x -=0.2;
+			programState->camera.Position.x -=0.1;
 		}
 		if(programState->camera.Position.y>19.5)
 		{
-			programState->camera.Position.y -=0.2;
+			programState->camera.Position.y -=0.1;
 		}
 		if(programState->camera.Position.z>9.5)
 		{
-			programState->camera.Position.z -=0.2;
+			programState->camera.Position.z -=0.1;
 		}
 		if(programState->camera.Position.x<-9.5)
 		{
-			programState->camera.Position.x +=0.2;
+			programState->camera.Position.x +=0.1;
 		}
 		if(programState->camera.Position.y<0.5)
 		{
-			programState->camera.Position.y +=0.2;
+			programState->camera.Position.y +=0.1;
 		}
 		if(programState->camera.Position.z<-9.5)
 		{
-			programState->camera.Position.z +=0.2;
+			programState->camera.Position.z +=0.1;
 		}
 	}
 }
