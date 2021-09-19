@@ -308,6 +308,13 @@ int main() {
     pointLight.quadratic = 0.032f;
 
 
+	DirectionalLight& directionalLight = programState->directionalLight;
+	directionalLight.ambient = glm::vec3(2.0f, 2.0, 0.0);
+	directionalLight.diffuse =  glm::vec3(0.3, 0.3, 0.3);
+	directionalLight.direction = glm::vec3 (1.0f, 1.0f, 0.0f);
+	directionalLight.specular = glm::vec3(1.0, 1.0, 1.0);
+
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -389,6 +396,16 @@ int main() {
 		// don't forget to enable shader before setting uniforms
         duciShader.use();
 
+
+		ourShader.setVec3("directionalLight.direction", glm::vec3 (1.0f, 1.0f, 0.0f));
+		duciShader.setVec3("directionalLight.ambient", glm::vec3(2.0f, 2.0, 0.0));
+		duciShader.setVec3("directionalLight.diffuse", glm::vec3(0.3, 0.3, 0.3));
+		duciShader.setVec3("directionalLight.specular", glm::vec3(1.0, 1.0, 1.0));
+
+		duciShader.setVec3("viewPosition", programState->camera.Position);
+		duciShader.setFloat("material.shininess", 32.0f);
+
+
         // view/projection transformations
         glm::mat4 projection2 = glm::perspective(glm::radians(programState->camera.Zoom),
                                                 (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
@@ -396,12 +413,6 @@ int main() {
 
         duciShader.setMat4("projection", projection2);
         duciShader.setMat4("view", view2);
-
-        DirectionalLight& directionalLight = programState->directionalLight;
-        directionalLight.ambient = glm::vec3(2.0f, 2.0, 0.0);;
-        directionalLight.diffuse =  glm::vec3(0.3, 0.3, 0.3);;
-        directionalLight.direction = glm::vec3 (1.0f, 1.0f, 0.0f);
-        directionalLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
         // render the loaded model
         glm::mat4 model2 = glm::mat4(1.0f);

@@ -13,6 +13,14 @@ struct DirectionalLight {
     vec3 specular;
 };
 
+struct Material {
+    sampler2D texture_diffuse1;
+    sampler2D texture_specular1;
+
+    float shininess;
+};
+uniform Material material;
+
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_specular1;
 uniform DirectionalLight directionalLight;
@@ -43,6 +51,6 @@ void main()
     vec3 viewDir = normalize(viewPosition - FragPos);
     vec3 result = CalcDirLight(directionalLight, normal, viewDir);
 
-    FragColor = texture(texture_diffuse1, TexCoord);
-    //FragColor = vec4(result, 1.0);
+    //FragColor = texture(texture_diffuse1, TexCoord);
+    FragColor = vec4(result, 1.0);
 }
