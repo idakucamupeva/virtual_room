@@ -163,6 +163,8 @@ int main() {
 
     Shader nasShader("resources/shaders/6.1.coordinate_systems.vs", "resources/shaders/6.1.coordinate_systems.fs");
 
+    Shader duciShader("resources/shaders/duci.vs", "resources/shaders/duci.fs");
+
    float vertices[] = {
         // positions          // normals           // texture coords
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -372,31 +374,22 @@ int main() {
 
 		//BACKPACK
 		// don't forget to enable shader before setting uniforms
-        ourShader.use();
-        pointLight.position = glm::vec3(4.0, 4.0f, 4.0);
-        ourShader.setVec3("pointLight.position", pointLight.position);
-        ourShader.setVec3("pointLight.ambient", pointLight.ambient);
-        ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
-        ourShader.setVec3("pointLight.specular", pointLight.specular);
-        ourShader.setFloat("pointLight.constant", pointLight.constant);
-        ourShader.setFloat("pointLight.linear", pointLight.linear);
-        ourShader.setFloat("pointLight.quadratic", pointLight.quadratic);
-        ourShader.setVec3("viewPosition", programState->camera.Position);
-        ourShader.setFloat("material.shininess", 32.0f);
+        duciShader.use();
+
         // view/projection transformations
         glm::mat4 projection2 = glm::perspective(glm::radians(programState->camera.Zoom),
                                                 (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view2 = programState->camera.GetViewMatrix();
-        ourShader.setMat4("projection", projection2);
-        ourShader.setMat4("view", view2);
+        duciShader.setMat4("projection", projection2);
+        duciShader.setMat4("view", view2);
 
         // render the loaded model
         glm::mat4 model2 = glm::mat4(1.0f);
         model2 = glm::translate(model2,
                                glm::vec3(0,1,0)); // translate it down so it's at the center of the scene
         model2 = glm::scale(model2, glm::vec3(0.5,0.5,0.5));    // it's a bit too big for our scene, so scale it down
-        ourShader.setMat4("model", model2);
-        ourModel1.Draw(ourShader);
+        duciShader.setMat4("model", model2);
+        ourModel1.Draw(duciShader);
         glUseProgram(0);
 
         if (programState->ImGuiEnabled)
